@@ -1,5 +1,4 @@
 #! /usr/bin/python3
-
 from tokens import *
 from settings import *
 from game import *
