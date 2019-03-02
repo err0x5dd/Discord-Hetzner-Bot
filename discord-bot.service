@@ -1,0 +1,14 @@
+[Unit]
+Description=Discord Bot for HetznerAPI
+After=network.target
+
+[Service]
+Type=simple
+User=discord-bot
+ExecStart=/opt/discord-bot/Discord-Hetzner-Bot/gameserver.py
+Restart=always
+RestartSec=5
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target
