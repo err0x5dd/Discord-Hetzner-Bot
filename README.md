@@ -16,3 +16,5 @@ A discord bot to start a hetzner cloud server from a snapshot with the data on a
 
 ## Notes
 I recommend the usage of a systemd service unit for the bot itself, because currently the bot tends to stop while waiting for the server creation.
+Also I recommend to make sure that the running application/game saves all data before exiting for example with an additional ExecStop line in the service unit wich simply executes a sleep command.
+The basic idea was a discord bot to start a gameserver when needed.
