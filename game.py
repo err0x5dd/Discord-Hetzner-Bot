@@ -29,7 +29,7 @@ class GameData:
 
         # check for running server
         servers = self.client.servers.get_all()
-	self.server = None
+        self.server = None
         for i in servers:
             if i.data_model.name == name:
                 self.server = i.data_model
@@ -69,14 +69,14 @@ class GameData:
             self.client.volumes.detach(Volume(self.volume))
             self.client.servers.delete(self.server)
             self.running = False
-	    self.server = None
+            self.server = None
         else:
             print(self.name + " isn't running")
 
     def status(self):
         msg = self.name
         if self.server == None:
-	    msg += " isn't running"
+            msg += " isn't running"
         else:
             self.server = self.client.servers.get_by_id(self.server.id)
             msg += " is in status "
