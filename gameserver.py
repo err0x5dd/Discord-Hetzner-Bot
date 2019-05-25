@@ -4,6 +4,7 @@ from settings import *
 from game import *
 from discord import Game
 import discord
+import sys
 
 client = discord.Client()
 
@@ -18,7 +19,8 @@ async def on_message(message):
                "!ping - simple online check\n"
                "!start GAME - starts a server for GAME\n"
                "!stop GAME - stops the server for GAME\n"
-               "!status [GAME] - prints basic infos about the server for GAME"
+               "!status [GAME] - prints basic infos about the server for GAME\n"
+               "!exit - exit bot script - should restart it when used with systemd service unit"
                ).format(message)
         await client.send_message(message.channel, msg)
     elif message.content.startswith(BOT_PREFIX + "ping"):
@@ -35,7 +37,7 @@ async def on_message(message):
                 if i.name.lower() == cmd[0]:
                     if i.isRunning() == False:
                         await client.change_presence(game=Game(name="starting server..."))
-                        i.start()
+                        await i.start()
                         await client.change_presence(game=Game(name="ready"))
                     msg = i.status()
         await client.send_message(message.channel, msg)
@@ -50,7 +52,7 @@ async def on_message(message):
                 if i.name.lower() == cmd[0]:
                     if i.isRunning() == True:
                         await client.change_presence(game=Game(name="stopping server..."))
-                        i.stop()
+                        await i.stop()
                         await client.change_presence(game=Game(name="ready"))
                     msg = i.status()
         await client.send_message(message.channel, msg)
@@ -62,6 +64,8 @@ async def on_message(message):
             elif i.name.lower() == cmd[0]:
                 msg = i.status()
             await client.send_message(message.channel, msg)
+    elif message.content.startswith(BOT_PREFIX + "exit"):
+        sys.exit("exit requested")
 
 @client.event
 async def on_ready():
